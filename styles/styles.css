@@ -5,12 +5,15 @@
 }
 
 body{
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
+    gap: 20px;
+    padding: 20px;
 }
 header{
     display: flex;
@@ -69,7 +72,7 @@ h1{
 
 #boardGame{
     border: solid 1px grey;
-    height: 400px;
+    height: 250px;
     width: 400px;
 }
 
