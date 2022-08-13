@@ -1,0 +1,112 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
+}
+
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-bottom: solid 2px grey;
+    margin-top: 25px;
+    padding: 4px;
+}
+
+h1{
+    font-weight: bold;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+#howToPlayIcon{
+    font-weight: bold;
+    border: solid 2px grey;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#howToPlayIcon > span{
+    color: grey;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+#lifeIcon{
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    color: grey;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+#boardGame{
+    border: solid 1px grey;
+    height: 400px;
+    width: 400px;
+}
+
+#keyBoard{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3,1fr);
+    gap: 10px;
+}
+
+.keyBoardRow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.keyWord{
+    background-color: #d3d6da;
+    font-family: Arial,Helvetica,sans-serif;
+    font-weight: bold;
+    width: 40px;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.keyWord:hover{
+    opacity: 0.8;
+}
+
+.specialKey{
+    width: 60px;
+    font-size: 12px;
+    font-weight: bold;
+}
+

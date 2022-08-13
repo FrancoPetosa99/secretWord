@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- estilos css-->
+    <link rel="stylesheet" href="./styles/styles.css">
+    <!-- script loading -->
+    <script src="./scripts/loading.js"></script>
+    <title>Secret Word</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <!-- life icon with bootstrap -->
+            <div id="lifeIcon"><span id="lifeNumber">5</span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="grey" class="bi bi-heart-fill" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg></div>
+            <!-- app title -->
+            <h1>SECRET WORD</h1>
+            <!-- how to play icon -->
+            <div id="howToPlayIcon"><span>?</span></div>
+        </nav>
+    </header>
+    <div id="boardGame"></div>
+    <div id="keyBoard">
+        <div class="keyBoardRow">
+            <div class="keyWord"><p>Q</p></div>
+            <div class="keyWord"><p>W</p></div>
+            <div class="keyWord"><p>E</p></div>
+            <div class="keyWord"><p>R</p></div>
+            <div class="keyWord"><p>T</p></div>
+            <div class="keyWord"><p>Y</p></div>
+            <div class="keyWord"><p>U</p></div>
+            <div class="keyWord"><p>I</p></div>
+            <div class="keyWord"><p>O</p></div>
+            <div class="keyWord"><p>P</p></div>
+        </div>
+        <div class="keyBoardRow">
+            <div class="keyWord"><p>A</p></div>
+            <div class="keyWord"><p>S</p></div>
+            <div class="keyWord"><p>D</p></div>
+            <div class="keyWord"><p>F</p></div>
+            <div class="keyWord"><p>G</p></div>
+            <div class="keyWord"><p>H</p></div>
+            <div class="keyWord"><p>J</p></div>
+            <div class="keyWord"><p>K</p></div>
+            <div class="keyWord"><p>L</p></div>
+        </div>
+        <div class="keyBoardRow">
+            <div id="enterKey" class="keyWord specialKey"><p>ENTER</p></div>
+            <div class="keyWord"><p>Z</p></div>
+            <div class="keyWord"><p>X</p></div>
+            <div class="keyWord"><p>C</p></div>
+            <div class="keyWord"><p>V</p></div>
+            <div class="keyWord"><p>B</p></div>
+            <div class="keyWord"><p>N</p></div>
+            <div class="keyWord"><p>M</p></div>
+            <div id="deleteKey" class="keyWord specialKey"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16"><path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/><path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/></svg></div>
+        </div>
+    </div>
+    <!-- script main -->
+    <script src="./scripts/main.js"></script>
+</body>
+</html>
