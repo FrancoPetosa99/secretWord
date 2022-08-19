@@ -202,7 +202,11 @@ function displayMessage(title, message, btnLabel, callback){
 }
 
 function resetGame(){
-    boardGame.innerHTML = '';
+    //boardGame.innerHTML = '';
+    const rowList = Array.from(document.getElementsByClassName('row'));
+    rowList.forEach(childNode => {
+        boardGame.removeChild(childNode)
+    })
     main();
 }
 
