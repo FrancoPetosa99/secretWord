@@ -25,15 +25,16 @@
 /* -------------------------------------------------------------------------- */
 const lifeNumber = 5;
 const levelNumber = 5;
-const wordList = ['FRANCO','CODERHOUSE'];
 const correctColor = '#6AAA64';
 const warningColor = '#C9B458';
 const wrongColor = '#787C7E';
+const requestURL = `https://api.wordnik.com/v4/words.json/randomWords?hasDictionaryDef=true&maxCorpusCount=-1&minDictionaryCount=1&maxDictionaryCount=-1&minLength=5&maxLength=-1&limit=10&api_key=YOURAPIKEY`
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                              Script Variables                              */
 /* -------------------------------------------------------------------------- */
+let secretWord;
 let currentLevel = 0;
 let currentRow = 0;
 let currentWord = '';
@@ -44,19 +45,35 @@ const boardGame = document.getElementById('boardGame');
 const remainLifes = document.getElementById('lifeNumber');
 const btnDelete = document.getElementById('Delete');
 const btnEnter = document.getElementById('Enter');
+const modal = new bootstrap.Modal('#modal', {
+    keyboard: false,
+    backdrop: 'static'
+})
 
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
 /*                            Helper Functions                                */
 /* -------------------------------------------------------------------------- */
+
+function checkMetaStatus(res){
+
+    if(!res.status || res.status != 200){
+        let status = res.status;
+        let errorMessage = `Api response returned with an status code ${status}`;
+        throw new Error(errorMessage);
+    }
+
+    return res
+}
+
 function buildGameBoard(){
     for (let i = 0; i < lifeNumber; i++) {
         const row = document.createElement('div');
         row.id = 'row' + i;
         row.className = 'row';
 
-        for (let x = 0; x < wordList[currentLevel].length; x++) {
+        for (let x = 0; x < secretWord.length; x++) {
             const box = document.createElement('p');
             box.className = 'letter';
             row.append(box);
@@ -79,15 +96,18 @@ function selectKey(pressedKey){
 }
 
 function checkGameStatus(){
-    console.log(lifeNumber - currentRow)
-    if(wordList[currentLevel] == currentWord){
-        gameOverMessage = 'CONGRATS!';
-        console.log(gameOverMessage)
+    if(secretWord == currentWord){
         isGameOver = true;
+        const title = 'Level passed';
+        const message = 'Do you want to continue?'
+        const labelBtn = 'Okey'
+        displayMessage(title, message, labelBtn, setNewLevel)
     }else if(lifeNumber - currentRow - 1 == 0){
-        gameOverMessage = 'GAME OVER!';
-        console.log(gameOverMessage)
         isGameOver = true;
+        const title = 'Game Over';
+        const message = 'You have lost'
+        const labelBtn = 'Try Again'
+        displayMessage(title, message, labelBtn, main)
     }else{
         remainLifes.textContent = lifeNumber - currentRow - 1;
         currentRow++;
@@ -99,12 +119,12 @@ function colorBoxesAndKeys(){
     const row = document.getElementById('row' + currentRow);
     const boxes = row.childNodes;
 
-    for (let i = 0; i < wordList[currentLevel].length; i++) {
+    for (let i = 0; i < secretWord.length; i++) {
         boxes[i].style.border = 'solid 1px transparent';
         boxes[i].style.color = 'white';
-        if(wordList[currentLevel][i] == currentWord[i]){
+        if(secretWord[i] == currentWord[i]){
             boxes[i].style.backgroundColor = correctColor;
-        }else if(wordList[currentLevel].includes(currentWord[i])){
+        }else if(secretWord.includes(currentWord[i])){
             boxes[i].style.backgroundColor = warningColor;
         }else{
             boxes[i].style.backgroundColor = wrongColor;
@@ -118,7 +138,7 @@ function deleteChar(){
     const charArr = [...boxes].map(box => box.innerText);
 
     let findFilledBox = false;
-    let index = wordList[0].length;
+    let index = secretWord.length;
 
     //search for a filled box to delete the content
     while(!findFilledBox && index > 0){
@@ -127,7 +147,6 @@ function deleteChar(){
             boxes[index - 1].innerText = '';
             findFilledBox = true;
             currentWord = currentWord.slice(0,currentWord.length - 1)
-            console.log(currentWord)
         }
 
         index--
@@ -135,35 +154,80 @@ function deleteChar(){
 
     
 }
+
+function displayMessage(title, message, btnLabel, callback){
+    const modalTitle = document.getElementById('modalTitle');
+    const modalText = document.getElementById('modalText');
+    const modalBtn = document.getElementById('modalBtn'); 
+
+    modalTitle.textContent = title;
+    modalText.textContent = message;
+    modalBtn.textContent = btnLabel;
+
+    modal.show()
+
+    modalBtn.addEventListener('click', ()=>{
+        //remove the modal from the user screen before runing callback function
+        modal.hide()
+        //run the callback funtion to continue with process
+        callback()
+    })
+}
+
+function setNewLevel(){
+
+}
+
+function restartGame(){
+
+}
 /* -------------------------------------------------------------------------- */
 
-buildGameBoard();
-
-keyWordList.forEach(key => {
-
-    key.addEventListener('click', ()=>{
-
-        if(!isGameOver){
-
-            switch (key.id) {
-                case 'Enter':
-                    console.log(currentWord.length == wordList[currentLevel].length)
-                    if(currentWord.length == wordList[currentLevel].length){
-                        colorBoxesAndKeys();
-                        checkGameStatus();
-                    }
-                break;
-
-                case 'Delete':
-                    deleteChar();
-                break;
-
-                default:
-                    selectKey(key);
-                break;
-            }
+async function main(){
+    try{
+        //repeat the api call until a word of 5 digits or less is returned
+        while(!secretWord || secretWord.length > 5){
+            secretWord = await fetch(`https://api.api-ninjas.com/v1/randomword?type=noun`)
+                            .then((res) => checkMetaStatus(res))
+                            .then((res) => res.json())
+                            .then((res) => res.word.toUpperCase())
         }
+    }catch(error){
+        const title = 'Ups!';
+        const message = 'Something went wrong'
+        const labelBtn = 'Try again'
+        displayMessage(title, message, labelBtn, main)
+    }
+    console.log(secretWord)
+
+    buildGameBoard();
+
+    keyWordList.forEach(key => {
+
+        key.addEventListener('click', ()=>{
+    
+            if(!isGameOver){
+    
+                switch (key.id) {
+                    case 'Enter':
+                        if(currentWord.length == secretWord.length){
+                            colorBoxesAndKeys();
+                            checkGameStatus();
+                        }
+                    break;
+                    case 'Delete':
+                        deleteChar();
+                    break;
+    
+                    default:
+                        selectKey(key);
+                    break;
+                }
+            }
+        })
     })
-})
+
+}
+main()
 
 
