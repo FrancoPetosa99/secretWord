@@ -34,6 +34,8 @@ const wrongColor = '#787C7E';
 /*                               Classes                                      */
 /* -------------------------------------------------------------------------- */
 class Game{
+
+    //tiene como proposito crear instancias del juego por cada secretWord
     constructor(rowList, secretWord){
         this.rowList = rowList; //array
         this.currentRow = 0; // index
@@ -43,8 +45,8 @@ class Game{
         this.isGameOver = false;
     }
 
-    //Delete the char from the box
     deleteChar(){
+        //este metodo se utiliza para eliminar las letras de la fila de boxes
         const row = this.rowList[this.currentRow]
         const boxes = row.childNodes;
         const charArr = [...boxes].map(box => box.innerText);
@@ -65,8 +67,9 @@ class Game{
         }
     }
 
-    //Print the selected key in the box
     selectKey(pressedKey){
+        //introduce la letra del teclado por que fue selecionada en el box
+        //El primer box vacio que se encuentra es en el que se inserta el texto
         const row = this.rowList[this.currentRow]
         const boxes = row.childNodes;
         const emptyBox = [...boxes].find(box => box.innerText == '');
@@ -77,8 +80,12 @@ class Game{
         }
     }
 
-    //verify the game status: continue - winner - game over
     checkGameStatus(){
+        //verifica el estado del juego:
+            //el usuario adivino la palabra y gano
+            //el usuario se quedo sin vidas y perdio
+            //el usuario no gano pero todavia le quedan vidas
+
         if(this.secretWord == this.currentWord){
             this.isGameOver = true;
             const title = 'Level passed';
@@ -99,6 +106,10 @@ class Game{
     }
 
     colorBoxesAndKeys(){
+        //indica el grado de acertación que hubo en la palabra
+            //verde si la letra y posición son correctas
+            //amarillo si la letra forma parte de la secretWord pero no se encuentra en la posición correcta
+            //gris si la letra ni si quiera existe en la palabra
         const row = this.rowList[this.currentRow];
         const boxes = row.childNodes;
     
@@ -116,6 +127,8 @@ class Game{
     }
 
     checkWord(){
+        //solo si se completaron todos los boxes de una fila
+        //recie en esa instancia se puede evaluar el resultado
         if (this.currentWord.length == this.secretWord.length) {
             this.colorBoxesAndKeys();
             this.checkGameStatus();
@@ -156,7 +169,8 @@ const spinner = new Spinner();
 /* -------------------------------------------------------------------------- */
 
 function checkMetaStatus(res){
-
+    //verificamos que la llamada a la api fue exitosa con status 200
+    //si el status no es el correcto se arroja un error
     if(!res.status || res.status != 200){
         let status = res.status;
         let errorMessage = `Api response returned with an status code ${status}`;
@@ -167,6 +181,10 @@ function checkMetaStatus(res){
 }
 
 function buildGameBoard(secretWord){
+    //dependiendo de secretWord se crean filas y columnas
+    //las filas representan cada intento que tiene el usuario
+    //las columnas representan los boxes para formar la palabra
+
     for (let i = 0; i < lifeNumber; i++) {
         const row = document.createElement('div');
         row.id = 'row' + i;
@@ -183,6 +201,12 @@ function buildGameBoard(secretWord){
 }    
 
 function displayMessage(title, message, btnLabel, callback){
+    //muestra un mensaje modal al usuario
+    //los siguientes elementos son customizables:
+        //el titulo del modal
+        //el mensaje
+        //el label del button para ejecutar la acción
+
     const modalTitle = document.getElementById('modalTitle');
     const modalText = document.getElementById('modalText');
     const modalBtn = document.getElementById('modalBtn'); 
@@ -194,15 +218,15 @@ function displayMessage(title, message, btnLabel, callback){
     modal.show()
 
     modalBtn.addEventListener('click', ()=>{
-        //remove the modal from the user screen before runing callback function
+        //primero cierra el modal y luego invoca la función de callback
         modal.hide()
-        //run the callback funtion to continue with process
         callback()
     })
 }
 
 function resetGame(){
-    //Delete every row from the previous board
+    // elima los childNodes viejos del contenedor boardGame
+    // para que puedan crearse los nuevos en la nueva instencia
     const rowList = Array.from(document.getElementsByClassName('row'));
     rowList.forEach(childNode => {
         boardGame.removeChild(childNode)
@@ -250,7 +274,8 @@ async function main(){
         })
 
     }catch(error){
-        console.log(error)
+        //atrapa cualquier error que haya podido suceder en el proceso del juego
+        //Muestra un mensaje modal para indicarle al usuario que hubo un problema 
         spinner.hide();
         const title = 'Ups!';
         const message = 'Something went wrong';
@@ -261,6 +286,7 @@ async function main(){
 main()
 
 howToPlayIcon.addEventListener('click', ()=>{
+    //despliega un modal con las instrucciones del juego
     instructions.show();
 })
 
