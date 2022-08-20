@@ -167,10 +167,12 @@ h1{
         gap: 5px;
     }
     .keyWord{
-        width: 35px;
+        width: 30px;
+        font-size: 15px;
     }
     .specialKey{
-        width: 50px;
+        width: auto;
+        padding: 5px;
     }
     
 }
