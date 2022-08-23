@@ -154,6 +154,50 @@ h1{
     }
 }
 
+#tooltip{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    font-size: 20px;
+    background-color: transparent;
+}
+
+#tooltipMessage{
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    text-align: center;
+    font-size: 1em;
+    padding: 1em;
+    font-weight: bold;
+    font-family: Arial,Helvetica,sans-serif;
+    background-color: black;
+    color: white;
+    opacity: 1;
+    transform: translateY(-200px);
+    animation: tooltip 1.5s ease-out forwards;
+}
+
+@keyframes tooltip {
+    0%{
+        transform: translateY(-100px);
+    }
+    20%{
+        transform: translateY(40px);
+    }
+    90%{
+        transform: translateY(40px);
+    }
+    100%{
+        ttransform: translateY(-100px);
+    }
+}
+
 .hide{
     display: none;
 }

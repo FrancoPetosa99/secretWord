@@ -19,7 +19,7 @@
 /* -------------------------------------------------------------------------- */
 /*                            Configurable Variables                          */
 /* -------------------------------------------------------------------------- */
-const lifeNumber = 2;
+const lifeNumber = 5;
 const levelNumber = 5;
 const correctColor = '#6AAA64';
 const warningColor = '#C9B458';
@@ -31,7 +31,7 @@ const wrongColor = '#787C7E';
 /* -------------------------------------------------------------------------- */
 class Game{
 
-    //tiene como proposito crear instancias del juego por cada secretWord
+    //tiene como proposito crear instancias del juego
     constructor(secretWord){
         this.rowList = Array.from(document.getElementsByClassName('row'));
         this.currentRow = 0;
@@ -40,6 +40,7 @@ class Game{
         this.lifeNumber = lifeNumber;
         this.isGameOver = false;
         this.keyBoard = document.querySelectorAll('.keyWord');
+        this.tooltip = tooltip
     }
 
     deleteChar(){
@@ -129,6 +130,8 @@ class Game{
         if (this.currentWord.length == this.secretWord.length) {
             this.colorBoxesAndKeys();
             this.checkGameStatus();
+        }else{
+            tooltip.show('Not enough letters');
         }
     }
 
@@ -170,6 +173,25 @@ class Spinner{
         this.spinner.classList.add('hide');
     }
 }
+
+class Tooltip{
+    constructor(){
+        this.tooltip = document.getElementById('tooltipMessage');
+    }
+
+    show(message){
+        this.tooltip.textContent = message;
+        this.tooltip.classList.remove('hide');
+
+        setTimeout(() => {
+            this.hide();
+        }, 1500);
+    }
+
+    hide(){
+        this.tooltip.classList.add('hide');
+    }
+}
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -186,6 +208,7 @@ const modalBtn = document.getElementById('modalBtn');
 const modal = new bootstrap.Modal('#modal', {keyboard: false,backdrop: 'static'});
 const instructions = new bootstrap.Modal('#instructions', {keyboard: false,backdrop: 'static'});
 const spinner = new Spinner();
+const tooltip = new Tooltip();
 /* -------------------------------------------------------------------------- */
 
 /* -------------------------------------------------------------------------- */
@@ -256,7 +279,20 @@ function getSecretWord(){
 }
 /* -------------------------------------------------------------------------- */
 
+/* -------------------------------------------------------------------------- */
+/*                              Events                                        */
+/* -------------------------------------------------------------------------- */
+howToPlayIcon.addEventListener('click', ()=>{
+    //despliega un modal con las instrucciones del juego
+    instructions.show();
+})
 
+modalBtn.addEventListener('click', ()=>{
+    //primero cierra el modal y luego invoca la función de resetGame()
+    modal.hide();
+    resetGame();
+});
+/* -------------------------------------------------------------------------- */
 
 async function main(){
     
@@ -280,13 +316,3 @@ async function main(){
 }
 main()
 
-howToPlayIcon.addEventListener('click', ()=>{
-    //despliega un modal con las instrucciones del juego
-    instructions.show();
-})
-
-modalBtn.addEventListener('click', ()=>{
-    //primero cierra el modal y luego invoca la función de callback
-    modal.hide();
-    resetGame();
-});
