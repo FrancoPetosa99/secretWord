@@ -62,7 +62,7 @@ class Game{
         //search for a filled box to delete the content
         while(!findFilledBox && index > 0){
 
-            if(charArr[index - 1] != ''){
+            if(charArr[index - 1] !== ''){
                 boxes[index - 1].innerText = '';
                 findFilledBox = true;
                 this.currentWord = this.currentWord.slice(0,this.currentWord.length - 1)
@@ -78,7 +78,7 @@ class Game{
         if(this.currentWord.length < this.secretWord.length){
             const row = this.rowList[this.currentRow]
             const boxes = row.childNodes;
-            const emptyBox = [...boxes].find(box => box.innerText == '');
+            const emptyBox = [...boxes].find(box => box.innerText === '');
         
             if(emptyBox){
                 emptyBox.innerText = pressedKey.innerText;
