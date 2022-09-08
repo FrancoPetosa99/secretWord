@@ -259,16 +259,16 @@ const tooltip = new Tooltip();
 /*                            Helper Functions                                */
 /* -------------------------------------------------------------------------- */
 
-function checkMetaStatus(res){
+function checkMetaStatus(response){
     //verificamos que la llamada a la api fue exitosa con status 200
     //si el status no es el correcto se arroja un error
-    if(!res.status || res.status != 200){
-        let status = res.status;
+    if(!response.status || response.status != 200){
+        let status = response.status;
         let errorMessage = `Api response returned with an status code ${status}`;
         throw new Error(errorMessage);
     }
 
-    return res
+    return response
 }
 
 function displayMessage(title, message, btnLabel){
@@ -287,8 +287,8 @@ function displayMessage(title, message, btnLabel){
 
 function getSecretWord(){
     return fetch(API)
-                .then((res) => checkMetaStatus(res))
-                .then((res) => res.json())
+                .then((response) => checkMetaStatus(response))
+                .then((response) => response.json())
                 .then((data) => data.map(data => data.word.toUpperCase()))
 }
 
