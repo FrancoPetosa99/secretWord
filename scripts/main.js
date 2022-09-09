@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //caso contrario le muestra un saludo con el nombre que contiene guardado en el localStorage
     if(localStorage.getItem("userName")){ //como es un string no hace falta parsearlo
         userName = localStorage.getItem("userName");
-        tooltip.show(`${userName} you are back!`)
+        tooltip.show(`${userName} you are back!`);
     }else{
         userName = prompt('Ingrese su nombre');
         localStorage.setItem("userName", userName);
@@ -383,7 +383,7 @@ async function startGame(){
         const message = 'Something went wrong';
         const labelBtn = 'Try again';
         displayMessage(title, message, labelBtn);
-        console.log(error)
+        console.log(error);
     }
 }
 startGame();
