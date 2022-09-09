@@ -241,6 +241,7 @@ class Tooltip{
 /*                              Script Variables                              */
 /* -------------------------------------------------------------------------- */
 let game;
+let userName;
 const keyWordList = document.querySelectorAll('.keyWord');
 const boardGame = document.getElementById('boardGame');
 const keyBoard = document.querySelectorAll('.keyWord');
@@ -335,7 +336,7 @@ keyBoard.forEach(key => {
 
 document.addEventListener('keydown', (e) => {
     //se ejecuta cada vez que el usuario toque una tecla del teclado
-    //solo son validas las teclas que indiquen letras y el enter
+    //solo son validas las teclas que indiquen letras, el enter y el delete
     if(!game.isLevelOver){
         if(isNaN(e.key) && e.code.toLowerCase().includes('key')){
             console.log(e.key.toUpperCase());
@@ -345,6 +346,18 @@ document.addEventListener('keydown', (e) => {
         }else if(e.key == 'Backspace'){
             game.deleteChar();
         }
+    }
+})
+
+document.addEventListener('DOMContentLoaded', () => {
+    //si detecta que el usuario ingreso por primera vez a la aplicación entonces le pide ingresar su nombre
+    //caso contrario le muestra un saludo con el nombre que contiene guardado en el localStorage
+    if(localStorage.getItem("userName")){ //como es un string no hace falta parsearlo
+        userName = localStorage.getItem("userName");
+        tooltip.show(`${userName} you are back!`)
+    }else{
+        userName = prompt('Ingrese su nombre');
+        localStorage.setItem("userName", userName);
     }
 })
 /* -------------------------------------------------------------------------- */
