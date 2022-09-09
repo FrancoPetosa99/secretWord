@@ -81,8 +81,8 @@ class Game{
             const emptyBox = [...boxes].find(box => box.innerText === '');
         
             if(emptyBox){
-                emptyBox.innerText = pressedKey.innerText;
-                this.currentWord = this.currentWord + pressedKey.innerText
+                emptyBox.innerText = pressedKey;
+                this.currentWord = this.currentWord + pressedKey
             }
         }else{
             tooltip.show('Enough letters');
@@ -326,11 +326,26 @@ keyBoard.forEach(key => {
                 break;
 
                 default:
-                    game.selectKey(key);
+                    game.selectKey(key.innerText);
                 break;
             }
         }
     })
+})
+
+document.addEventListener('keydown', (e) => {
+    //se ejecuta cada vez que el usuario toque una tecla del teclado
+    //solo son validas las teclas que indiquen letras y el enter
+    if(!game.isLevelOver){
+        if(isNaN(e.key) && e.code.toLowerCase().includes('key')){
+            console.log(e.key.toUpperCase());
+            game.selectKey(e.key.toUpperCase());
+        }else if(e.key == 'Enter'){
+            game.checkWord();
+        }else if(e.key == 'Backspace'){
+            game.deleteChar();
+        }
+    }
 })
 /* -------------------------------------------------------------------------- */
 
