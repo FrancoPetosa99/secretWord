@@ -352,12 +352,13 @@ document.addEventListener('keydown', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     //si detecta que el usuario ingreso por primera vez a la aplicación entonces le pide ingresar su nombre
     //caso contrario le muestra un saludo con el nombre que contiene guardado en el localStorage
-    if(localStorage.getItem("userName")){ //como es un string no hace falta parsearlo
-        userName = localStorage.getItem("userName");
-        tooltip.show(`${userName} you are back!`);
-    }else{
+    userName = localStorage.getItem("userName");
+    if(!userName){ //como es un string no hace falta parsearlo
         userName = prompt('Ingrese su nombre');
         localStorage.setItem("userName", userName);
+    }else{
+        userName = localStorage.getItem("userName");
+        tooltip.show(`${userName} you are back!`);
     }
 })
 /* -------------------------------------------------------------------------- */
