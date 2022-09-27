@@ -95,8 +95,8 @@ class Game{
             //el usuario se quedo sin vidas y perdio
             //el usuario no gano pero todavia le quedan vidas
         
-        if(this.secretWord == this.currentWord){
-            if(this.currentLevel == 4){
+        if(this.secretWord === this.currentWord){
+            if(this.currentLevel === 4){
                 this.isGameOver = true;
                 const title = 'WINNER';
                 const message = 'You have guessed all the secret words';
@@ -109,7 +109,7 @@ class Game{
                 const labelBtn = 'Okey';
                 displayMessage(title, message, labelBtn);
             }
-        }else if(this.lifeNumber -1 == 0){
+        }else if(this.lifeNumber -1 === 0){
             this.isGameOver = true;
             const title = 'Game Over';
             const message = 'You have lost';
@@ -134,7 +134,7 @@ class Game{
         for (let i = 0; i < this.secretWord.length; i++) {
             boxes[i].style.border = 'solid 1px transparent';
             boxes[i].style.color = 'white';
-            if(this.secretWord[i] == this.currentWord[i]){
+            if(this.secretWord[i] === this.currentWord[i]){
                 boxes[i].style.backgroundColor = correctColor;
             }else if(this.secretWord.includes(this.currentWord[i])){
                 boxes[i].style.backgroundColor = warningColor;
@@ -147,7 +147,7 @@ class Game{
     checkWord(){
         //solo si se completaron todos los boxes de una fila
         //recien en esa instancia se puede evaluar el resultado
-        if (this.currentWord.length == this.secretWord.length) {
+        if (this.currentWord.length === this.secretWord.length) {
             this.colorBoxesAndKeys();
             this.checkGameStatus();
         }else{
@@ -341,9 +341,9 @@ document.addEventListener('keydown', (e) => {
         if(isNaN(e.key) && e.code.toLowerCase().includes('key')){
             console.log(e.key.toUpperCase());
             game.selectKey(e.key.toUpperCase());
-        }else if(e.key == 'Enter'){
+        }else if(e.key === 'Enter'){
             game.checkWord();
-        }else if(e.key == 'Backspace'){
+        }else if(e.key === 'Backspace'){
             game.deleteChar();
         }
     }
