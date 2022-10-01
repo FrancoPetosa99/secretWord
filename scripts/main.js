@@ -5,12 +5,15 @@
 
     Preconditions: Para que funcione este script hace falta que este linkeado correctamente al file index.html
                    Caso contrario muchas funcionalidades arrojarian un error ya que el script 
-                   espera encontrar determinados elementos Html
+                   espera encontrar determinados elementos Html junto con los enlaces correspondientes a las librerias
 
     Obj:           El objetivo de este script es poder recrear un juego donde el usuario deba adivinar 5 palabras para ganar
                    El jugador con 5 oportunidades por cada palabra
                    Las palabras son aleatorias y de desconocen ya que provienen de una API
                    Los llamados a la API se realizan solamente al comienzo del juego y en caso de que el usuario haya ganado o perdido y halla que reiniciar el juego.
+    
+    libraries:     sweet alert2: toast y alerts
+                   bootstrap: modales
 
     Date of Dev:   15/08/2022
     Last Rev Date: 15/08/2022
@@ -381,7 +384,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             })
-        }, 1000);
+        }, 2000);
     }
 })
 /* -------------------------------------------------------------------------- */
