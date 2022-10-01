@@ -349,16 +349,39 @@ document.addEventListener('keydown', (e) => {
     }
 })
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     //si detecta que el usuario ingreso por primera vez a la aplicación entonces le pide ingresar su nombre
     //caso contrario le muestra un saludo con el nombre que contiene guardado en el localStorage
     userName = localStorage.getItem("userName");
     if(!userName){ //como es un string no hace falta parsearlo
-        userName = prompt('Ingrese su nombre');
-        localStorage.setItem("userName", userName);
+        userName = await Swal.fire({ //devuelve un obj promise, la propiedad value es lo que ingrese el usuario en el input
+            title: 'Welcome!',
+            text: 'First time on SecretWord?',
+            icon: 'question',
+            confirmButtonText: 'Confirm',
+            backdrop: true,
+            allowOutsideClick: false,
+            input: "text",
+            inputPlaceholder: "Enter your name"
+        })
+        localStorage.setItem("userName", userName.value);
     }else{
         userName = localStorage.getItem("userName");
-        tooltip.show(`${userName} you are back!`);
+        setTimeout(() => { //mejora la UX, evita que el usuario reciba tanta información repentina
+            Swal.fire({
+                toast: true,
+                title: `Welcome back ${userName}!`,
+                position: 'top-end',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+        }, 1000);
     }
 })
 /* -------------------------------------------------------------------------- */
@@ -388,7 +411,4 @@ async function startGame(){
     }
 }
 startGame();
-
-
-
 
