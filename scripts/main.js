@@ -394,7 +394,7 @@ async function startGame(){
         //Inicia el juego
         //Antes de llamar a la api muestra el loading
         //Cuando llega de la api las secretWords para iniciar el juego se esconde el loading
-        //Se inicia el nivel llamando a la función setLevel
+        //Se construye el game-board
         spinner.show();
         const wordList = await getSecretWord();
         spinner.hide();
