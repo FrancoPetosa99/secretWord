@@ -342,7 +342,6 @@ document.addEventListener('keydown', (e) => {
     //solo son validas las teclas que indiquen letras, el enter y el delete
     if(!game.isLevelOver){
         if(isNaN(e.key) && e.code.toLowerCase().includes('key')){
-            console.log(e.key.toUpperCase());
             game.selectKey(e.key.toUpperCase());
         }else if(e.key === 'Enter'){
             game.checkWord();
@@ -410,7 +409,6 @@ async function startGame(){
         const message = 'Something went wrong';
         const labelBtn = 'Try again';
         displayMessage(title, message, labelBtn);
-        console.log(error);
     }
 }
 startGame();
