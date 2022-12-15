@@ -1,6 +1,6 @@
 # secretWord
 
-### About SecretWord
+## About SecretWord
 
 SecretWord is a web aplication for entertaiment.
 
@@ -18,14 +18,24 @@ Users also can choose bethween using the board displayed on the screen or use th
 
 The game allows only 5 attempts to guess the word otherwhise the game would be over and restart again with a different secret word.
 
-### secretWord Develpment
+## secretWord Develpment
 
 The aplication is built using the following technologies:
 
-1- HTML and CSS for the layout and styling of the elements on the DOM.
+### HTML & CSS
 
-2- Bootstrap for the modal creation.
+HTML and CSS for the layout and styling of the main structure on the DOM.
 
-3- JavaScript to run all the game logic and handle elements on the DOM.
+### Bootstrap v5.2
 
-4- SweetAlert2 library is used to display some greeting messages and ask users to leave their names.
+The modals on the aplication are buildt with Bootstrapp CSS and JS. 
+This element plays an important role on the application, thanks to them users are able to have a guianza along the game. https://getbootstrap.com/docs/5.2/getting-started/introduction/
+
+### JavaScript
+
+JavaScript is used to run all the game logic and handle elements on the DOM. The main logic is based on OOP.
+
+### SweetAlert2
+
+SweetAlert2 is a library that provides clients with customized alerts that can be display on the frontend of the app.
+https://sweetalert2.github.io/
