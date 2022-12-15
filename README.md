@@ -1,6 +1,6 @@
 # secretWord
 
-# About SecretWord
+### About SecretWord
 
 SecretWord is a web aplication for entertaiment.
 
@@ -18,7 +18,7 @@ Users also can choose bethween using the board displayed on the screen or use th
 
 The game allows only 5 attempts to guess the word otherwhise the game would be over and restart again with a different secret word.
 
-# secretWord Develpment
+### secretWord Develpment
 
 The aplication is built using the following technologies:
 
