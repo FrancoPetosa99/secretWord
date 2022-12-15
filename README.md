@@ -33,7 +33,7 @@ This element plays an important role on the application, thanks to them users ar
 
 ### JavaScript
 
-JavaScript is used to run all the game logic and handle elements on the DOM. The main logic is buildt on OOP.
+JavaScript is used to run all the game logic and handle elements on the DOM. The main logic is buildt using OOP.
 
 ### SweetAlert2
 
